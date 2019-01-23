@@ -1,5 +1,5 @@
 <?php
-
+$totalPrice = 0;
 $str="
   <section class=\"newarrivalsmenWoman\">
       <div class=\"newarrivals container onshoppingcartpage\">
@@ -33,13 +33,14 @@ $str="
           </div>
 ";
 var_dump($products);
-var_dump($q_ty);
+var_dump($_SESSION['goodsCounter']);
 foreach ($products as $key => $value) {
+  $totalPrice += $products[$key]->total_price;
 $str.= "
   <article class='ShoppingCartProduct'>
       <div class='ShoppingCartProduct__productdetails'>
           <div class='ShoppingCartProduct__image'>
-              <a href='#'><img src='img/shoppingcartpict/1.jpg' alt='product1'></a>
+              <a href='#'><img width='100' height='115' src='{$products[$key]->img_src}' alt='product1'></a>
           </div>
           <div class='ShoppingCartProduct__description'>
               <p class='ShoppingCartProduct__description_ProductName'>{$products[$key]->name}</p>
@@ -54,20 +55,22 @@ $str.= "
           </div>
       </div>
       <div class='ShoppingCartProduct__unitPrice'>
-          <p>150$</p>
+          <p>$ {$products[$key]->price}</p>
       </div>
-      <div >
-          <input class='ShoppingCartProduct__quantity' type='text' value='{$products[$key]->q_ty}'>
+      <div style='display: flex; align-items: center' >
+          <div><a href='/cart/add/?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>+</a></div>
+          <input class='ShoppingCartProduct__quantity' type='text' disabled value='{$products[$key]->q_ty}'>
+          <div><a href='/cart/del/?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>-</a></div>
       </div>
       <div class='ShoppingCartProduct__shipping'>
           <p>FREE</p>
       </div>
       <div class='ShoppingCartProduct__subtotal'>
-          <p>$300</p>
+          <input class='ShoppingCartProduct__quantity' type='text' disabled value='$ {$products[$key]->total_price}'>
       </div>
-      <div class='ShoppingCartProduct__action'>
+      <a class='ShoppingCartProduct__action'>
           <i class='fas fa-times-circle'></i>
-      </div>
+      </a>
   </article>";
 
 
@@ -75,8 +78,8 @@ $str.= "
 
 $str.="
   <div class=\"ShoppingCartButtons\">
-              <button class=\"ShoppingCartButtons__button\">CLEAR SHOPPING CART</button>
-              <button class=\"ShoppingCartButtons__button\">CONTINUE SHOPPING</button>
+                <button  class=\"ShoppingCartButtons__button\">CLEAR SHOPPING CART</button>
+                <button class=\"ShoppingCartButtons__button\">CONTINUE SHOPPING</button>
           </div>
           <div class=\"shoppingCartBeforeCheckOut\">
               <form class=\"shippingAddressCart\">
@@ -97,11 +100,11 @@ $str.="
               <div class=\"proceedToCheckOut\">
                   <p class=\"proceedToCheckOut__firstParagraph\">
                       <span>Sub total</span>
-                      <span class=\"proceedToCheckOut__spanSubTotal\">$900</span>
+                      <span class=\"proceedToCheckOut__spanSubTotal\">$ $totalPrice</span>
                   </p>
                   <p class=\"proceedToCheckOut__secondParagraph\">
                       <span>GRAND TOTAL</span>
-                      <span class=\"proceedToCheckOut__spanGrandTotal\">$900</span>
+                      <span class=\"proceedToCheckOut__spanGrandTotal\">$ $totalPrice</span>
                   </p>
                   <hr>
                   <a class=\"proceedToCheckOut__button\" href=\"checkout.html\">proceed to&nbsp;checkout</a>

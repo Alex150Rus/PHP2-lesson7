@@ -17,7 +17,10 @@ class CartController extends Controller
 {
   public function actionIndex() {
     $productsInCart = (new CartRepository())->getCart();
+    if (!$productsInCart) {
+      $productsInCart = [];
     echo $this->render("cart", ['products' => $productsInCart, 'className'=>$this->getClassName()]);
+    }
   }
 
   //public function actionCard()
@@ -40,16 +43,10 @@ class CartController extends Controller
 
   public function actionDel()
   {
+    (new Request())->getHttpReferrer();
     $id = (new Request())->getParams()['id'];
-    //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
-    if ($this->checkIfInCart()) {
-      $product = (new ProductRepository())->getOne($id);
-      (new CartRepository)->delete($product);
-      $location = $_SERVER['HTTP_REFERER'];
-      header('Location:' . $location);
-    }
+    (new CartRepository)->deleteOneItem($id);
   }
-
 
   public function getClassName() {
     return 'cart';
