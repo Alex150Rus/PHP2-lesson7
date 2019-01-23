@@ -16,11 +16,17 @@ $actionName = $request->getActionName();
 
 
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+$defaultControllerClass = CONTROLLER_NAMESPACE . ucfirst(DEFAULT_CONTROLLER) . "Controller";
 
 if (class_exists($controllerClass)){
   $controller = new $controllerClass(new TemplateRenderer());
   $controller->runAction($actionName);
-};
+} else {
+  $controller = new $defaultControllerClass(new TemplateRenderer());
+  $controller->runAction($actionName);
+}
+
+;
 
 /**
  * Created by PhpStorm.
