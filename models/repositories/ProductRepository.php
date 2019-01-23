@@ -14,7 +14,7 @@ class ProductRepository extends Repository
 {
 public function getTableName():string
 {
-  return 'products';
+  return 'featureditems';
 }
 
 public function getRecordClass()

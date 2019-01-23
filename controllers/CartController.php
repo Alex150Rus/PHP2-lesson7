@@ -13,39 +13,34 @@ use app\models\repositories\CartRepository;
 use app\models\repositories\ProductRepository;
 
 class CartController extends Controller
+
 {
   public function actionIndex() {
-    $product = (new CartRepository())->getAll();
-    // отправляем на отрисовку
-    echo $this->render("cart", ['product' => $product, 'className'=>$this->getClassName()]);
+    $productsInCart = (new CartRepository())->getCart();
+    echo $this->render("cart", ['products' => $productsInCart, 'className'=>$this->getClassName()]);
   }
-  //рисует карточку товара
-  public function actionCard()
-  {
-    // для этого метода не применяем статическую часть сайта
-    //получаем id us url (прилетит туда гет запросом)
-    $id = (new Request())->getParams()['id'];
-    //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
-    $product = (new CartRepository())->getOne($id);
-    // отправляем на отрисовку
-    echo $this->render("card", ['product' => $product, 'className'=>$this->getClassName()]);
-  }
+
+  //public function actionCard()
+  //
+  //  //получаем id us url (прилетит туда гет запросом)
+  //  $id = (new Request())->getParams()['id'];
+  //  //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
+  //  $product = (new CartRepository())->getOne($id);
+  //  // отправляем на отрисовку
+  //  echo $this->render("card", ['product' => $product, 'className'=>$this->getClassName()]);
+  //}
 
   public function actionAdd()
   {
-    $id = (new Request())->getParams()['id'];;
-    //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
-    if (!$this->checkIfInCart()) {
-    $product = (new ProductRepository())->getOne($id);
-    (new CartRepository)->insert($product);
-    // отправляем на отрисовку
-    echo $this->render("card", ['product' => $product, 'className'=>$this->getClassName()]);
+    (new Request())->getHttpReferrer();
+    $id = (new Request())->getParams()['id'];
+    $productInCart = (new ProductRepository())->getOne($id);
+    new CartRepository($productInCart, $id);
     }
-  }
 
   public function actionDel()
   {
-    $id = (new Request())->getParams()['id'];;
+    $id = (new Request())->getParams()['id'];
     //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
     if ($this->checkIfInCart()) {
       $product = (new ProductRepository())->getOne($id);
@@ -55,17 +50,8 @@ class CartController extends Controller
     }
   }
 
+
   public function getClassName() {
     return 'cart';
   }
-
-  public function checkIfInCart () {
-    $id = (new Request())->getParams()['id'];
-    $product = (new CartRepository())->getOne($id);
-    if ($product !== null) {
-      return true;
-    }
-  }
 }
-
-// проверить есть ли товар в корзине и потом только добавлять

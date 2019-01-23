@@ -16,6 +16,7 @@ class Request
   protected $controllerName;
   protected $actionName;
   protected $params;
+  protected $httpreferrer;
 
   protected $pattern = '#(?P<controller>\w+)[/]?(?P<action>\w+)?[/]?[?]?(?P<params>.*)#ui';
 
@@ -32,7 +33,6 @@ class Request
       $this->controllerName = $matches['controller'][0];
       $this->actionName = $matches['action'][0];
       $this->params=$_REQUEST;
-      $this->getMethod();
     };
   }
 
@@ -59,6 +59,11 @@ class Request
   public function getIsAjax()
   {
 
+  }
+
+  public function getHttpReferrer() {
+    $this->httpreferrer = $_SERVER['HTTP_REFERER'];
+    return header("Location: $this->httpreferrer");
   }
 
 }
