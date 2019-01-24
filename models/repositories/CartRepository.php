@@ -45,7 +45,8 @@ class CartRepository extends Repository
     }
   }
 
-  public function clearShoppingCart() {
+  public function clearCart() {
+    unset($_SESSION['cart'], $_SESSION['goodsCounter'], $_SESSION);
   }
 
   public function getTableName() :string

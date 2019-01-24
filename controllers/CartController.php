@@ -19,8 +19,8 @@ class CartController extends Controller
     $productsInCart = (new CartRepository())->getCart();
     if (!$productsInCart) {
       $productsInCart = [];
-    echo $this->render("cart", ['products' => $productsInCart, 'className'=>$this->getClassName()]);
     }
+    echo $this->render("cart", ['products' => $productsInCart, 'className'=>$this->getClassName()]);
   }
 
   //public function actionCard()
@@ -46,6 +46,11 @@ class CartController extends Controller
     (new Request())->getHttpReferrer();
     $id = (new Request())->getParams()['id'];
     (new CartRepository)->deleteOneItem($id);
+  }
+
+  public function actionClear() {
+    (new Request())->getHttpReferrer();
+    (new CartRepository)->clearCart();
   }
 
   public function getClassName() {

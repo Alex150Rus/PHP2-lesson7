@@ -78,7 +78,9 @@ $str.= "
 
 $str.="
   <div class=\"ShoppingCartButtons\">
-                <button  class=\"ShoppingCartButtons__button\">CLEAR SHOPPING CART</button>
+                <form action='/cart/clear'>
+                  <button class=\"ShoppingCartButtons__button\">CLEAR SHOPPING CART</button>
+                </form>
                 <button class=\"ShoppingCartButtons__button\">CONTINUE SHOPPING</button>
           </div>
           <div class=\"shoppingCartBeforeCheckOut\">
