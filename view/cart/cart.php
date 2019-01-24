@@ -58,17 +58,17 @@ $str.= "
           <p>$ {$products[$key]->price}</p>
       </div>
       <div style='display: flex; align-items: center' >
-          <div><a href='/cart/add/?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>+</a></div>
+          <div><a href='/cart/add?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>+</a></div>
           <input class='ShoppingCartProduct__quantity' type='text' disabled value='{$products[$key]->q_ty}'>
-          <div><a href='/cart/del/?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>-</a></div>
+          <div><a href='/cart/del?id={$products[$key]->id}' style='text-decoration: none; margin: 0 2px'>-</a></div>
       </div>
       <div class='ShoppingCartProduct__shipping'>
           <p>FREE</p>
       </div>
       <div class='ShoppingCartProduct__subtotal'>
-          <input class='ShoppingCartProduct__quantity' type='text' disabled value='$ {$products[$key]->total_price}'>
+          <p >$ {$products[$key]->total_price}</p>
       </div>
-      <a class='ShoppingCartProduct__action'>
+      <a class='ShoppingCartProduct__action' href='/cart/remove?id={$products[$key]->id}'>
           <i class='fas fa-times-circle'></i>
       </a>
   </article>";
@@ -109,7 +109,7 @@ $str.="
                       <span class=\"proceedToCheckOut__spanGrandTotal\">$ $totalPrice</span>
                   </p>
                   <hr>
-                  <a class=\"proceedToCheckOut__button\" href=\"checkout.html\">proceed to&nbsp;checkout</a>
+                  <a class=\"proceedToCheckOut__button\" href=\"/user\">proceed to&nbsp;checkout</a>
               </div>
           </div>
       </div>

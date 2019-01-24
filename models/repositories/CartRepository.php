@@ -16,6 +16,10 @@ class CartRepository extends Repository
 
   protected $session;
 
+  public function sessionStatus() {
+    return $this->session;
+  }
+
   public function __construct($cart = null, $id=null)
   {
     parent::__construct();
@@ -35,7 +39,7 @@ class CartRepository extends Repository
     return $_SESSION['cart'];
   }
 
-  public function deleteOneItem($id) {
+  public function decreaseItemQ_ty($id) {
     if ($counter = $_SESSION['goodsCounter'][$id] > 1) {
     $counter = $_SESSION['goodsCounter'][$id] -=1;
     $_SESSION['cart'][$id]->q_ty= $counter;
@@ -43,6 +47,10 @@ class CartRepository extends Repository
     } else {
     unset($_SESSION['cart'][$id], $_SESSION['goodsCounter'][$id], $_SESSION);
     }
+  }
+
+  public function deleteItem($id) {
+    unset($_SESSION['cart'][$id], $_SESSION['goodsCounter'][$id], $_SESSION);
   }
 
   public function clearCart() {

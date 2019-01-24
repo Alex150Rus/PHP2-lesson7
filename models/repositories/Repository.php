@@ -83,7 +83,6 @@ abstract class Repository implements IRepository
     $tableName = $this->getTableName();
     $expression = implode(", ",array_values($expression));
     $sql = "UPDATE {$tableName} SET {$expression} WHERE id= :id";
-    var_dump($sql);
     return $this->db->execute($sql, $params);
   }
 

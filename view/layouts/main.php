@@ -101,7 +101,7 @@
                   <p>$500</p>
                 </div>
                 <div>
-                  <a class="productInCart__cartbuttons" href="checkout.html">CHECKOUT</a>
+                  <a class="productInCart__cartbuttons" href="/user">CHECKOUT</a>
                   <div class="productInCart__emptyelement"></div>
                   <a class="productInCart__cartbuttons" href="/cart">GO&nbsp;TO&nbsp;CART</a>
                 </div>

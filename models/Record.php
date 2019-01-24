@@ -14,6 +14,4 @@ use app\interfaces\IRecord;
 abstract class Record implements IRecord
 {
 
-
-
 }

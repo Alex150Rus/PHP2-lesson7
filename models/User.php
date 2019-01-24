@@ -14,6 +14,12 @@ class User extends Record
  public $id;
  public $login;
  public $password;
- public $email;
 
+  public function __construct(
+    $login = null, $password = null, $id = null)
+  {
+    $this->id = $id;
+    $this->login = $login;
+    $this->password = $password;
+  }
 }

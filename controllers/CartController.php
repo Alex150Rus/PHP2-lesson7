@@ -23,16 +23,6 @@ class CartController extends Controller
     echo $this->render("cart", ['products' => $productsInCart, 'className'=>$this->getClassName()]);
   }
 
-  //public function actionCard()
-  //
-  //  //получаем id us url (прилетит туда гет запросом)
-  //  $id = (new Request())->getParams()['id'];
-  //  //создаём необходимую сущность для отрисовки, вытаскивая нужную инфу из БД
-  //  $product = (new CartRepository())->getOne($id);
-  //  // отправляем на отрисовку
-  //  echo $this->render("card", ['product' => $product, 'className'=>$this->getClassName()]);
-  //}
-
   public function actionAdd()
   {
     (new Request())->getHttpReferrer();
@@ -45,7 +35,14 @@ class CartController extends Controller
   {
     (new Request())->getHttpReferrer();
     $id = (new Request())->getParams()['id'];
-    (new CartRepository)->deleteOneItem($id);
+    (new CartRepository)->decreaseItemQ_ty($id);
+  }
+
+  public function actionRemove()
+  {
+    (new Request())->getHttpReferrer();
+    $id = (new Request())->getParams()['id'];
+    (new CartRepository)->deleteItem($id);
   }
 
   public function actionClear() {
