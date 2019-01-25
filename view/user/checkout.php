@@ -55,7 +55,7 @@ $str = "<section class=\"newarrivalsmenWoman\">
             </label>
             <input class=\"shippingaddress__right_dimensions\" id=\"password\" type=\"password\" name=\"password\">
             <p class=\"shippingaddress__right_RequiredFields\">* Required Fileds</p>
-            <button class=\"shippingaddress__right_button\">Log in</button>
+            <button formaction=\"/user/login\" class=\"shippingaddress__right_button\">Log in</button>
             <button formaction=\"/user/register\" style=\"margin-left: 30px\" class=\"shippingaddress__right_button\">Register</button>
             <a class=\"shippingaddress__right_ForgotPassword\" href=\"#\">Forgot Password ?</a>
           </form>
@@ -80,6 +80,5 @@ $str = "<section class=\"newarrivalsmenWoman\">
     </details>
   </div>
 </section>";
-var_dump($_SESSION);
 echo $str;
 

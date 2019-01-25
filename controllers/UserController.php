@@ -23,17 +23,19 @@ class UserController extends Controller
 
   public function actionLogin()
   {
-
+    (new Request())->getHttpReferrer();
+    $userRepository = new UserRepository();
+    $formInfo = $userRepository->getFormInfo();
+    $userRepository->ifUserExists($formInfo);
   }
 
   public function actionRegister()
   {
     (new Request())->getHttpReferrer();
-    $login = $this->clearLogin($_POST['login']);
-    $password = md5(md5($_POST['password']));
     $userRepository = new UserRepository();
-    if (!$userRepository->ifUserExists($login)) {
-      $userRepository->addUserToDb($login, $password);
+    $formInfo = $userRepository->getFormInfo();
+    if (!$userRepository->ifUserExists($formInfo)) {
+      $userRepository->addUserToDb($formInfo);
     };
 
     //если нет, то написать, что пользователь с таким именем уже есть $_SESSION[Message]
@@ -43,10 +45,6 @@ class UserController extends Controller
   public function actionLogout()
   {
 
-  }
-
-  public function clearLogin($login) {
-    return $login=strip_tags(trim($login));
   }
 
   public function getClassName() {

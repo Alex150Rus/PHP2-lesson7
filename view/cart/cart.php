@@ -32,8 +32,6 @@ $str="
               <h2 class=\"ShoppingCartHeader__header\">action</h2>
           </div>
 ";
-var_dump($products);
-var_dump($_SESSION['goodsCounter']);
 foreach ($products as $key => $value) {
   $totalPrice += $products[$key]->total_price;
 $str.= "
