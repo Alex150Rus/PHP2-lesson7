@@ -9,25 +9,26 @@
 namespace app\services;
 
 use app\interfaces\IDb;
-use app\traits\TSingleton;
 
 
 class Db implements IDb
 {
-
-  use TSingleton;
-
-  private $config = [
-    'driver' => 'mysql',
-    'host' => 'localhost',
-    'login' => 'root',
-    'password' => 'Alex123belka',
-    'database' => 'shop-php',
-    'charset' => 'utf8',
-  ];
+  private $config;
 
   //хранится соединение
   private $conn = null;
+
+  public function __construct($driver, $host, $login, $password, $database, $charset)
+  {
+    $this->config = [
+      'driver' => $driver,
+      'host' => $host,
+      'login' => $login,
+      'password' => $password,
+      'database' => $database,
+      'charset' => $charset,
+    ];
+  }
 
 
   private function getConnection()

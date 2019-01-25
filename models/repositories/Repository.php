@@ -7,6 +7,7 @@
  */
 
 namespace app\models\repositories;
+use app\base\App;
 use app\interfaces\IRepository;
 use app\models\Record;
 use app\services\Db;
@@ -94,6 +95,6 @@ abstract class Repository implements IRepository
   }
 
   protected function getDb(){
-    return Db::getInstance();
+    return App::call()->db;
   }
 }

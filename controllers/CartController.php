@@ -8,6 +8,7 @@
 
 namespace app\controllers;
 
+use app\base\App;
 use app\services\Request;
 use app\models\repositories\CartRepository;
 use app\models\repositories\ProductRepository;
@@ -25,7 +26,7 @@ class CartController extends Controller
 
   public function actionAdd()
   {
-    (new Request())->getHttpReferrer();
+    App::call()->request->getHttpReferrer();
     $id = (new Request())->getParams()['id'];
     $productInCart = (new ProductRepository())->getOne($id);
     new CartRepository($productInCart, $id);
@@ -33,20 +34,20 @@ class CartController extends Controller
 
   public function actionDel()
   {
-    (new Request())->getHttpReferrer();
-    $id = (new Request())->getParams()['id'];
+    App::call()->request->getHttpReferrer();
+    $id =  App::call()->request->getParams()['id'];
     (new CartRepository)->decreaseItemQ_ty($id);
   }
 
   public function actionRemove()
   {
-    (new Request())->getHttpReferrer();
-    $id = (new Request())->getParams()['id'];
+    App::call()->request->getHttpReferrer();
+    $id =  App::call()->request->getParams()['id'];
     (new CartRepository)->deleteItem($id);
   }
 
   public function actionClear() {
-    (new Request())->getHttpReferrer();
+    App::call()->request->getHttpReferrer();
     (new CartRepository)->clearCart();
   }
 

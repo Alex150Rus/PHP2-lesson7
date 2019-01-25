@@ -9,6 +9,7 @@
 namespace app\services\renderers;
 
 // отчечает за отображение пхп шаблонов
+use app\base\App;
 use app\interfaces\IRenderer;
 
 class TemplateRenderer implements IRenderer
@@ -18,10 +19,10 @@ class TemplateRenderer implements IRenderer
 ob_start();
   //загоняем в переменную путь к шаблону
   if ($template == 'main') {
-$templatePath = TEMPLATES_DIR . "layouts/$template" . ".php";
+$templatePath = App::call()->config['templatesDir'] . "layouts/$template" . ".php";
   //разворачиваем массив с параметрами и записываем их в переменные
   } else {
-    $templatePath = TEMPLATES_DIR . "{$params['className']}/$template" . ".php";
+    $templatePath = App::call()->config['templatesDir'] . "{$params['className']}/$template" . ".php";
   }
 extract($params);
 include $templatePath;

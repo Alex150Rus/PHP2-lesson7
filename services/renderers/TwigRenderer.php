@@ -10,6 +10,7 @@ namespace app\services\renderers;
 
 
 use app\interfaces\IRenderer;
+use app\base\App;
 
 class TwigRenderer implements IRenderer
 {
@@ -22,7 +23,7 @@ class TwigRenderer implements IRenderer
   public function __construct()
   {
     $this->templater = new \Twig_Environment(
-      new \Twig_Loader_Filesystem(TEMPLATES_DIR . "twig"),
+      new \Twig_Loader_Filesystem(App::call()->config['templatesDir'] . "twig"),
       ['autoescape' => false]
     );
   }

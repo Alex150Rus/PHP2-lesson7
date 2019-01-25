@@ -1,13 +1,24 @@
 <?php
-
-define("ROOT_DIR", $_SERVER['DOCUMENT_ROOT'] . "/../");
-define("DEFAULT_CONTROLLER", 'product');
-define("CONTROLLER_NAMESPACE", "app\\controllers\\");
-define("TEMPLATES_DIR", ROOT_DIR . "view/");
-
-/**
- * Created by PhpStorm.
- * User: Alex1
- * Date: 11.01.2019
- * Time: 14:14
- */
+return [
+  'rootDir' => $_SERVER['DOCUMENT_ROOT'] . "/../",
+  'templatesDir' => $_SERVER['DOCUMENT_ROOT'] . "/../view/",
+  'defaultController' => 'product',
+  'controllerNamespace' => "app\\controllers\\",
+  'components' => [
+    'db' => [
+      'class' => \app\services\Db::class,
+      'driver' => 'mysql',
+      'host' => 'localhost',
+      'login' => 'root',
+      'password' => 'Alex123belka',
+      'database' => 'shop-php',
+      'charset' => 'utf8',
+    ],
+    'request' => [
+      'class' => \app\services\Request::class
+    ],
+    'renderer' => [
+      'class' => \app\services\renderers\TemplateRenderer::class
+    ]
+  ]
+];
